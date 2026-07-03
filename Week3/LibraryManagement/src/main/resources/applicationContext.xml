@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Spring Application Context Configuration
+
+        This XML file tells Spring which objects (beans) to create and how
+        to wire them together. When the application starts, Spring reads
+        this file and sets up everything for us.
+
+        Exercise 1: We define the beans for BookRepository and BookService.
+        Exercise 2: We wire BookRepository into BookService using setter injection.
+    -->
+
+    <!-- Bean definition for BookRepository -->
+    <!-- Spring will create one instance of this class and manage its lifecycle -->
+    <bean id="bookRepository" class="com.library.repository.BookRepository" />
+
+    <!--
+        Bean definition for BookService with dependency injection.
+
+        The <property> tag tells Spring to call the setter method setBookRepository()
+        and pass in the bookRepository bean we defined above.
+
+        name="bookRepository"  -> Spring looks for a setter named setBookRepository()
+        ref="bookRepository"   -> Spring passes the bean with id "bookRepository"
+    -->
+    <bean id="bookService" class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepository" />
+    </bean>
+
+</beans>
