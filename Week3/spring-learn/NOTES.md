@@ -42,3 +42,45 @@
 2. It instantiates `Country` using the default constructor (`Inside Country Constructor.` is logged).
 3. Then, it sets the values configured in `<property>` tags by invoking setter methods (`Inside setCode method` and `Inside setName method` are logged).
 4. Getter methods are invoked only when we fetch properties from code afterwards.
+
+---
+
+### 4. REST Web Services Configurations:
+*   **Hello World Service (`/hello`)**:
+    *   Returns `"Hello World!!"` plain text.
+    *   Logs method start and end.
+    *   Run on port `8083`.
+*   **Country Service (`/country`)**:
+    *   Directly loads the `in` bean from `country.xml` and returns it.
+*   **Get Country Service (`/countries/{code}`)**:
+    *   Extracts code via `@PathVariable` path parameter.
+    *   Invokes `CountryService.getCountry(code)` which performs a case-insensitive search on the XML bean list using Java Streams.
+
+---
+
+### 5. SME REST Walkthrough Questions & Answers:
+
+**Q: What happens in the controller method?**
+1. The client sends an HTTP GET request to `http://localhost:8083/country`.
+2. Spring DispatcherServlet maps this request to `CountryController.getCountryIndia()`.
+3. Inside the method, a new `ClassPathXmlApplicationContext` is loaded to read `country.xml`.
+4. The `in` bean is retrieved from the context and returned by the method.
+
+**Q: How is the java bean converted into JSON response?**
+- Spring Boot uses a built-in library called **Jackson (ObjectMapper)**.
+- When a method is annotated with `@RestController` or `@ResponseBody`, Spring automatically uses Jackson's message converter to serialize Java objects (POJOs) into standard JSON strings by calling their getter methods.
+
+**Q: How do you check HTTP headers in Chrome Developer Tools & Postman?**
+*   **Chrome DevTools**:
+    1. Press `F12` and go to the **Network** tab.
+    2. Hit `http://localhost:8083/hello` or `/country`.
+    3. Click on the request name in the list, then view **Headers**.
+    4. You will see:
+        *   `Status Code: 200 OK`
+        *   `Content-Type: text/plain;charset=UTF-8` (for `/hello`)
+        *   `Content-Type: application/json` (for `/country` and `/countries/{code}`)
+*   **Postman**:
+    1. Send a GET request to the URL.
+    2. Below the response pane, click on the **Headers** tab.
+    3. Key headers like `Content-Type`, `Transfer-Encoding`, and `Date` are displayed.
+
