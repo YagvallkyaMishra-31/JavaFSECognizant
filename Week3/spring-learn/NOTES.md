@@ -84,3 +84,41 @@
     2. Below the response pane, click on the **Headers** tab.
     3. Key headers like `Content-Type`, `Transfer-Encoding`, and `Date` are displayed.
 
+---
+
+### 6. JWT Authentication & Authorization Configurations:
+*   **Security Config (`SecurityConfig.java`)**:
+    *   Inherits from `WebSecurityConfigurerAdapter`.
+    *   Registers two users in-memory: `admin` and `user` with password `pwd`.
+    *   Restricts access to `/authenticate` to users with roles `USER` or `ADMIN`.
+    *   Specifies `JwtAuthorizationFilter` to intercept all other REST API requests.
+*   **JWT Generation (`AuthenticationController.java`)**:
+    *   Decrypts Base64 header for HTTP Basic authorization (`Authorization: Basic ...`).
+    *   Decodes string payload using `Base64.getDecoder()` to isolate the username.
+    *   Creates a signed JWT utilizing `jjwt` library (`SignatureAlgorithm.HS256`, key `"secretkey"`).
+    *   Configures token expiry (20 minutes).
+*   **JWT Filter (`JwtAuthorizationFilter.java`)**:
+    *   Extends `BasicAuthenticationFilter`.
+    *   Intercepts requests and verifies if `Authorization` header contains `Bearer <token>`.
+    *   Parses the token claims with `"secretkey"`. If valid, registers the user in Spring Security Context `SecurityContextHolder`.
+
+---
+
+### 7. Verification Curl Commands:
+
+**1. Create a fresh JWT token**:
+```bash
+curl -s -u user:pwd http://localhost:8090/authenticate
+```
+*   *Expected Response:* `{"token":"eyJhbGciOiJIUzI1NiJ9..."}`
+
+**2. Query resource using valid Bearer JWT**:
+```bash
+curl -s -H "Authorization: Bearer <TOKEN_HERE>" http://localhost:8090/country
+```
+*   *Expected Response:* `{"code":"IN","name":"India"}`
+
+**3. Query resource with modified/invalid JWT**:
+*   *Expected Response:* `403 Forbidden` / `401 Unauthorized`
+
+
