@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 
+        Hands on 4: Spring Core XML Bean Configuration
+        
+        This defines a bean named "country" of type com.cognizant.springlearn.Country.
+        Spring will load this file, instantiate the Country class using its default constructor,
+        and then call the setter methods (setCode and setName) to inject the property values.
+    -->
+    <bean id="country" class="com.cognizant.springlearn.Country">
+        <property name="code" value="IN" />
+        <property name="name" value="India" />
+    </bean>
+
+</beans>
