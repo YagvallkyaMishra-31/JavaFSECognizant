@@ -1,0 +1,16 @@
+/* CohortDetails.module.css - CSS Module for styling cohort details */
+
+/* Step 6: box class with required properties */
+.box {
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+/* Step 7: style for dt element */
+dt {
+  font-weight: 500;
+}
