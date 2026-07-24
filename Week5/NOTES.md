@@ -1,97 +1,46 @@
-# Week 5 - React Hands-on Exercises
 
-## Q1: myfirstreact - Setting up React Environment
+# Week 5 - Additional React Hands-on Exercises (Part 2)
 
-- Created a new React app using `npx create-react-app myfirstreact`
-- Replaced the default App.js content with a simple class component
-- Displays "Welcome to the first session of React" as an h1 heading
-- Ran using `npm start` and tested at http://localhost:3000
+## Q1: cricketapp - ES6 Features in React
 
-### Key Concepts Covered:
-- SPA (Single Page Application) vs MPA (Multi Page Application)
-- React Virtual DOM - React keeps a lightweight copy of the real DOM in memory. When state changes, 
-  it compares the virtual DOM with real DOM (diffing) and only updates what changed
-- Features of React: Component based, JSX, Virtual DOM, One way data binding, Performance
+- **ListofPlayers**: Demonstrates `map()` method of ES6 for transforming an array of 11 player objects into JSX list items. Uses arrow functions within `filter()` to extract players scoring under 70.
+- **IndianPlayers**: Demonstrates ES6 destructuring by separating odd/even team players based on array indices. Merges two separate arrays (`T20players` and `RanjiTrophyPlayers`) using the ES6 Spread Operator (`...`).
+- **Conditional Rendering**: Toggles between components via an `if-else` statement evaluated against a `flag` variable.
 
 ---
 
-## Q2: StudentApp - Class Components
+## Q2: officespacerentalapp - JSX Syntax & Inline Styling
 
-- Created three class components: Home, About, Contact
-- Each component is in separate file under src/Components/ folder
-- All components are imported and rendered in App.js
-- This shows how to break an application into reusable components
-
-### Key Concepts:
-- Class components extend React.Component
-- Each component has a render() method that returns JSX
-- Components are reusable and independent pieces of UI
-- Components can be imported and composed together in parent components
+- Demonstrates JSX syntax: rendering raw elements, setting image `src` attributes dynamically, and pulling fields from a single JavaScript object (`office`).
+- Uses `map()` to iterate over a list of office space objects.
+- **Dynamic Inline Styling**: Sets table cell text color to red if rent is under ₹60,000 and green if rent is ₹60,000 or above using template logic.
 
 ---
 
-## Q3: scorecalculatorapp - Function Components & Props
+## Q3: eventexamplesapp - React Events & State
 
-- Created a function component called CalculateScore
-- The component accepts props: name, school, total, goal
-- It calculates average score = total / goal
-- Applied CSS styling using a separate stylesheet (mystyle.css)
-
-### Key Concepts:
-- Function components are simpler than class components
-- Props are used to pass data from parent to child components
-- CSS can be imported directly into React components
-- Function components don't have lifecycle methods (use hooks instead)
+- **EventExamples**:
+  - Increments and decrements counter state via button click handlers.
+  - Demonstrates invoking multiple functions (`increment()` and `sayHello()`) from a single event callback.
+  - Demonstrates passing custom parameter strings to event handler functions (`sayWelcome('Welcome...')`).
+  - Utilizes React's `SyntheticEvent` object (`onPress(event)`).
+- **CurrencyConvertor**: Form submission handler (`handleSubmit`) that calculates Euro values from an Indian Rupee input field (`rupees / 89`).
 
 ---
 
-## Q4: blogapp - Component Lifecycle
+## Q4: ticketbookingapp - Conditional Rendering
 
-- Created a Post class to represent blog post data
-- Created Posts class component with lifecycle hooks
-- Used Fetch API to get posts from https://jsonplaceholder.typicode.com/posts
-- Implemented componentDidMount() to fetch data after component mounts
-- Implemented componentDidCatch() for error handling
-
-### Key Lifecycle Methods:
-1. **constructor()** - Initialize state with empty posts array
-2. **componentDidMount()** - Called once after first render, good place for API calls
-3. **render()** - Returns JSX to display, called whenever state/props change
-4. **componentDidCatch()** - Error boundary, catches errors in child components
-
-### Lifecycle Order:
-constructor → render → componentDidMount → (state update) → render again
+- Demonstrates conditional UI state based on user authentication status (`isLoggedIn`).
+- **GuestPage**: Rendered when user is logged out (`isLoggedIn = false`). Displays flight listings with a notice to log in for booking.
+- **UserPage**: Rendered when user is logged in (`isLoggedIn = true`). Displays flight booking controls.
+- Login and Logout buttons update parent component state, automatically re-rendering the appropriate view.
 
 ---
 
-## Q5: cohortapp - CSS Modules & Styling
+## Q5: bloggerapp - Conditional Rendering Patterns & Component Keys
 
-- Created a cohort dashboard to display ongoing and completed cohort details
-- Used CSS Modules (CohortDetails.module.css) for scoped styling
-- Defined a "box" class with specific dimensions, border, padding, margin
-- Applied conditional inline styles: green for "ongoing" status, blue for "completed"
-
-### Key Concepts:
-- CSS Modules create locally scoped class names to avoid conflicts
-- Import CSS modules as objects: `import styles from './file.module.css'`
-- Apply using `className={styles.box}` instead of regular string
-- Inline styles use JavaScript objects with camelCase properties
-- Conditional styling can be done with ternary operator in JSX
-
-### CSS Module Properties for .box:
-- width: 300px, display: inline-block
-- margin: 10px (overall)
-- padding: 10px 20px (top-bottom, left-right)
-- border: 1px solid black
-- border-radius: 10px
-
----
-
-## How to Run Any App
-
-```bash
-cd <app-folder>
-npm install
-npm start
-```
-Then open http://localhost:3000 in browser.
+Implemented 3 separate components (`BookDetails`, `BlogDetails`, `CourseDetails`) demonstrating various React conditional rendering patterns:
+1. **Logical `&&` Operator**: Used inside `BookDetails` to check array length before mapping.
+2. **Element Variables**: Used inside `BlogDetails` to assign JSX content to a variable based on `if-else` logic before rendering.
+3. **Ternary Operator (`? :`)**: Used inside `CourseDetails` for inline conditional layout evaluation.
+4. **Switch Statement**: Used inside `App.js` helper method (`renderSelectedComponent()`) to filter active component views dynamically via tab buttons.
